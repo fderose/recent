@@ -47,12 +47,10 @@ where
   * __``+date_published:[2013-01-01T00:00:00Z TO 2014-12-08T23:59:59Z]``__ means find all documents where the __``date_published``__ field falls in the specified range. The __``+``__ sign indicates that documents must be in this date range in order for the document to be returned. (This arbitrary range is included in the search to limit the number of documents that must be processed by the __``recent``__ function.)
   * __``targetDate=2014-12-08T23:59:59Z``__ is an assignment of today's date to the local variable __``targetDate``__
   * __``$targetDate``__ is a dereferencing of that local variable __``targetDate``__, which evaluates to the current date
-  * __``date_published``__ is the date_published field from the book document
+  * __``date_published``__ is the __``date_published``__ field from the book document
   * __``recent``__ is a function that we have written and plugged in to Solr by extending the Solr/Lucene [ValueSource](http://lucene.apache.org/core/4_10_2/queries/org/apache/lucene/queries/function/ValueSource.html?is-external=true) and [ValueSourceParser](http://lucene.apache.org/solr/4_10_2/solr-core/org/apache/solr/search/ValueSourceParser.html) classes.
 
-The __``recent``__ function compares all the values in the __``date_published``__ field of all documents with the targetDate. The closer the __``published_date``__ is to the __``targetDate``__, the higher the boost that will be applied to the matching book.
-
-The Solr query infrastructure then calculates a final score by combining the boost returned by the __``recent``__ function with the relevancy score based on how well the book title matched the search term “bond” (this relevancy score having been calculated by Lucene's [Similarity](http://lucene.apache.org/core/4_10_2/core/org/apache/lucene/search/similarities/Similarity.html) class).
+The __``recent``__ function compares all the values in the __``date_published``__ field of all documents with the __``targetDate``--. The closer the __``published_date``__ is to the __``targetDate``__, the higher the boost that will be applied to the matching book.  The Solr query infrastructure then calculates a final score by combining the boost returned by the __``recent``__ function with the relevancy score based on how well the book title matched the search term “bond” (this relevancy score having been calculated by Lucene's [Similarity](http://lucene.apache.org/core/4_10_2/core/org/apache/lucene/search/similarities/Similarity.html) class).
 
 The end result is that the scores of books matching the search terms are boosted by how recently they were published.
 
