@@ -7,7 +7,6 @@ import org.apache.lucene.queries.function.docvalues.DoubleDocValues;
 
 import java.io.IOException;
 import java.text.ParseException;
-import java.util.Date;
 import java.util.Map;
 
 public class RecentFunction extends ValueSource {
@@ -15,13 +14,15 @@ public class RecentFunction extends ValueSource {
   protected final ValueSource variableDate;
   protected final long targetDate;
 
+  private static final long MILLISECONDS_IN_DAY = 86400000L;
+
   public RecentFunction(long targetDate, ValueSource variableDate) {
     this.targetDate = targetDate;
     this.variableDate = variableDate;
   }
 
   private double recip(long x, long m, long a, long b) {
-    return (double)a /((double)(m*x+b));
+    return (double)a/(double)(m*x+b);
   }
 
   @Override
@@ -34,10 +35,7 @@ public class RecentFunction extends ValueSource {
       public double doubleVal(int doc) {
         String dateStr = inputValues.strVal(doc);
         try {
-          Date date = RecentFunctionParser.format.parse(dateStr);
-          long variableDate = date.getTime();
-          long diff = Math.abs(variableDate - targetDate);
-          return recip(diff, 1L, 86400000L, 86400000L);
+          return recip(Math.abs(RecentFunctionParser.format.parse(dateStr).getTime() - targetDate), 1L, MILLISECONDS_IN_DAY, MILLISECONDS_IN_DAY);
         } catch (ParseException e) {
           System.out.println(String.format("Could not parse variableDate: %s", dateStr));
         }

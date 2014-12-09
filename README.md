@@ -58,7 +58,7 @@ The end result is that the scores of books matching the search terms are boosted
 
 In Solr Admin, place the following string in the "q" field:
  
-    +title:Bond +date_published:[2014-01-01T00:00:00Z TO 2014-12-08T23:59:59Z] _val_:"recent($targetDate,date_published)"
+    +title:Bond +date_published:[2013-01-01T00:00:00Z TO 2014-12-08T23:59:59Z] _val_:"recent($targetDate,date_published)"
 
   -- add the following string in the "Raw Query Parameters" field:
 

@@ -10,7 +10,7 @@ import java.text.SimpleDateFormat;
 
 public class RecentFunctionParser extends ValueSourceParser {
 
-  static final SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+  static final SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'"); // Solr Zulu format
 
   @Override
   public ValueSource parse(FunctionQParser functionQParser) throws SyntaxError {
