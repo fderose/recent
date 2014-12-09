@@ -44,7 +44,7 @@ Suppose that today's date is 2014-12-08T00:00:00Z (in Solr's Zulu format). We ca
 where
 
   * __``+title:Bond``__ means "find all documents where the title field contains the search term "Bond." The __``+``__ sign indicates that the search term must be present in order for the document to be returned.
-  *__``+date_published:[2013-01-01T00:00:00Z TO 2014-12-08T23:59:59Z]``__ means find all documents where the __``date_published``__ field falls in the specified range. The __``+``__ sign indicates that documents must be in this date range in order for the document to be returned. (This arbitrary range is included in the search to limit the number of documents that must be processed by the __``recent``__ function.)
+  * __``+date_published:[2013-01-01T00:00:00Z TO 2014-12-08T23:59:59Z]``__ means find all documents where the __``date_published``__ field falls in the specified range. The __``+``__ sign indicates that documents must be in this date range in order for the document to be returned. (This arbitrary range is included in the search to limit the number of documents that must be processed by the __``recent``__ function.)
   * __``targetDate=2014-12-08T23:59:59Z``__ is an assignment of today's date to the local variable __``targetDate``__
   * __``$targetDate``__ is a dereferencing of that local variable __``targetDate``__, which evaluates to the current date
   * __``date_published``__ is the date_published field from the book document
