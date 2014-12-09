@@ -61,6 +61,6 @@ public class RecentFunction extends ValueSource {
 
   @Override
   public String description() {
-    return "ADAC function";
+    return "recent function";
   }
 }
