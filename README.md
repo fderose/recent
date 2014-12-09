@@ -11,7 +11,7 @@ This search routine takes as input:
 The routine outputs a list of books (videos) ordered by a score computed based on two criteria:
 
   * C1: how well the book’s (video's) title matches the search terms
-  * C2: how new or recent the book is (as determined from some date field in the document
+  * C2: how new or recent the book is as determined from some date field in the document
 
 Book documents are stored in a Solr index and have the following four fields:
 
@@ -20,7 +20,7 @@ Book documents are stored in a Solr index and have the following four fields:
   * category (for example, financial, computer, espionage, gardening)
   * date_published
 
-Note: In the default example in the Solr 4.10.2 release, the documents represented by the *schema.xml* file are books and have all the fields listed above except __``date_published``__, so this field must be added to the schema.xml file.
+Note: In the default example in the Solr 4.10.2 release, the documents represented by the *schema.xml* file are books and have all the fields listed above except __``date_published``__, so this field must be added to the *schema.xml* file.
 
 Now, suppose that Frank issues a search for books by the supplying the search term “bond.” Consideration of criterion C1 (how well the book title matches the search terms) suggests that two books should be returned by this search:
 
@@ -35,16 +35,16 @@ Now, suppose that Frank issues a search for books by the supplying the search te
         category: espionage
         date_published:2014-02-01T00:00:00Z
     
-But, it is unclear based just on criterion C1 how these results should be ordered when they are returned to Frank since both books contain a single term in the title field that matches the search term. On the other hand, consideration of criterion C2 (how recently the book was published) suggests that the first book is should be given a boost since it is newer and returned at the top of the list.
+But, it is unclear based just on criterion C1 how these results should be ordered when they are returned to Frank since both books contain a single term in the title field that matches the search term. On the other hand, consideration of criterion C2 (how recently the book was published) suggests that the first book is should be given a boost (since it is newer) and returned at the top of the list.
 
 Suppose that today's date is 2014-12-08T00:00:00Z (in Solr's Zulu format). We can boost search results by newness by issuing the following query to Solr:
 
-    +title:Bond +date_published:[2014-01-01T00:00:00Z TO 2014-12-08:12:59:59Z] _val_:"recent($targetDate,date_published)"&targetDate=2014-12-08T23:59:59Z
+    +title:Bond +date_published:[2013-01-01T00:00:00Z TO 2014-12-08T12:59:59Z] _val_:"recent($targetDate,date_published)"&targetDate=2014-12-08T23:59:59Z
 
 where
 
   * __``+title:Bond``__ means "find all documents where the title field contains the search term "Bond." The __``+``__ sign indicates that the search term must be present in order for the document to be returned.
-  *__``+date_published:[2013-01-01T00:00:00Z TO 2013-12-08T23:59:59Z]``__ means find all documents where the __``date_published``__ field falls in the specified range. The __``+``__ sign indicates that documents must be in this date range in order for the document to be returned. (This arbitrary range is included in the search to limit the number of documents that must be processed by the __``recent``__ function.)
+  *__``+date_published:[2013-01-01T00:00:00Z TO 2014-12-08T23:59:59Z]``__ means find all documents where the __``date_published``__ field falls in the specified range. The __``+``__ sign indicates that documents must be in this date range in order for the document to be returned. (This arbitrary range is included in the search to limit the number of documents that must be processed by the __``recent``__ function.)
   * __``targetDate=2014-12-08T23:59:59Z``__ is an assignment of today's date to the local variable __``targetDate``__
   * __``$targetDate``__ is a dereferencing of that local variable __``targetDate``__, which evaluates to the current date
   * __``date_published``__ is the date_published field from the book document
