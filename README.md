@@ -70,3 +70,10 @@ Here are the "explains" for the two matching documents (look for the part of the
 
       "1": "\n0.95704985 = (MATCH) sum of:\n  0.43346903 = (MATCH) weight(title:bond in 0) [DefaultSimilarity], result of:\n    0.43346903 = score(doc=0,freq=1.0 = termFreq=1.0\n), product of:\n      0.6732547 = queryWeight, product of:\n        1.287682 = idf(docFreq=2, maxDocs=4)\n        0.52284235 = queryNorm\n      0.643841 = fieldWeight in 0, product of:\n        1.0 = tf(freq=1.0), with freq of:\n          1.0 = termFreq=1.0\n        1.287682 = idf(docFreq=2, maxDocs=4)\n        0.5 = fieldNorm(doc=0)\n  0.52284235 = (MATCH) ConstantScore(date_published:[1356998400000 TO 1418083199000]), product of:\n    1.0 = boost\n    0.52284235 = queryNorm\n  7.384779E-4 = (MATCH) FunctionQuery(recent function), product of:\n    0.0014124294 = recent function=0.001412429401620851\n    1.0 = boost\n    0.52284235 = queryNorm\n",
       "2": "\n0.9579871 = (MATCH) sum of:\n  0.43346903 = (MATCH) weight(title:bond in 1) [DefaultSimilarity], result of:\n    0.43346903 = score(doc=1,freq=1.0 = termFreq=1.0\n), product of:\n      0.6732547 = queryWeight, product of:\n        1.287682 = idf(docFreq=2, maxDocs=4)\n        0.52284235 = queryNorm\n      0.643841 = fieldWeight in 1, product of:\n        1.0 = tf(freq=1.0), with freq of:\n          1.0 = termFreq=1.0\n        1.287682 = idf(docFreq=2, maxDocs=4)\n        0.5 = fieldNorm(doc=1)\n  0.52284235 = (MATCH) ConstantScore(date_published:[1356998400000 TO 1418083199000]), product of:\n    1.0 = boost\n    0.52284235 = queryNorm\n  0.0016757768 = (MATCH) FunctionQuery(recent function), product of:\n    0.0032051282 = recent function=0.0032051283240268993\n    1.0 = boost\n    0.52284235 = queryNorm\n"
+
+Note: It must be noted that you can do exactly the same thing out of the box with Solr functions:
+
+    +title:Bond +date_published:[2013-01-01T00:00:00Z TO 2014-12-08T12:59:59Z] _val_"recip(abs(ms($targetDate,published_date)),1,86400000, 86400000)"&targetDate=2014-12-08T23:59:59Z
+
+But, it's fun to play around with Solr SourceValue funcs.
+

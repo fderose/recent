@@ -8,6 +8,6 @@
   The alias "recent" can then be used inside Solr queries to invoke the personalize function.
 -->
 
-<lib path="/Users/fderose/recent/out/artifacts/recent_jar/recent.jar"/>
+<lib path="/Users/fderose/solrfuncs/recent/out/artifacts/recent_jar/recent.jar"/>
 
 <valueSourceParser name="recent" class="com.guidewire.solr.RecentFunctionParser" />
