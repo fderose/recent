@@ -15,11 +15,13 @@ and the Query page.
 
   -- add the following string in the "q" field:
 
-    +title:Bond +date_published:[2014-01-01T00:00:00Z TO 2014-12-31T23:59:59Z] _val_:"recent($targetDate,date_published)"
+    +title:Bond +date_published:[2013-01-01T00:00:00Z TO 2014-12-08T23:59:59Z] _val_:"recent($targetDate,date_published)"
 
   -- add the following string in the "Raw Query Parameters" field:
 
-    targetDate=2014-06-30T00:00:00Z
+    targetDate=2014-12-08T23:59:59Z
+
+Note: This query supposes that today's date is 2014-12-08T23:59:59Z. You will need to change as suitable.
 
 7.) Execute the query. You should be able to set a break point inside of
 the RecentFunction.getValues method and step through the code.
